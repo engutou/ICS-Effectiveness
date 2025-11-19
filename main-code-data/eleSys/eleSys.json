@@ -1,0 +1,178 @@
+{
+  "variable_groups": [
+    {
+      "_comment": "目标网络T时刻的真实状态，X_1 X_2...等",
+      "name": "X_t",
+      "prefix": "X",
+      "suffix": "",
+      "start": 1,
+      "end": 7,
+      "values": ["0", "1", "2", "3"]
+    },
+    {
+      "_comment": "目标网络T+1时刻的真实状态，X_1_t1 X_2_t1...等",
+      "name": "X_t+1",
+      "prefix": "X",
+      "suffix": "t1",
+      "start": 1,
+      "end": 7,
+      "values": ["0", "1", "2", "3"]
+    },
+    {
+      "_comment": "攻击方对目标网络T时刻的观测状态，Y_1 Y_2...等",
+      "name": "Y_t",
+      "prefix": "Y",
+      "suffix": "",
+      "start": 1,
+      "end": 5,
+      "values": ["0", "1", "2", "3"]
+    },
+    {
+      "_comment": "防御方对目标网络T时刻的观测状态，Z_1 Z_2...等",
+      "name": "Z_t",
+      "prefix": "Z",
+      "suffix": "",
+      "start": 1,
+      "end": 7,
+      "values": ["0", "1", "2", "3"]
+    },
+    {
+      "_comment": "攻击策略，A_1 A_2...等",
+      "name": "Attack",
+      "prefix": "A",
+      "suffix": "",
+      "start": 1,
+      "end": 5,
+      "values": ["0", "1"]
+    },
+    {
+      "_comment": "防御策略，D_1 D_2...等",
+      "name": "Defend",
+      "prefix": "D",
+      "suffix": "",
+      "start": 1,
+      "end": 5,
+      "values": ["0", "1"]
+    }
+  ],
+  "individual_variables": {
+    "_comment": "单个变量的定义格式: \"var_name\": [\"val1\", \"val2\", ...]"
+  },
+  "edges": {
+    "_comment": "todo: 在single_edges添加（1）X_t到攻防策略的关系；（2）攻防策略到X_t+1的关系",
+    "single_edges": [
+      {"from": "X_1", "to": "X_2"},
+      {"from": "X_1", "to": "X_3"},
+      {"from": "X_1", "to": "X_4"},
+      {"from": "X_2", "to": "X_3"},
+      {"from": "X_2", "to": "X_4"},
+      {"from": "X_3", "to": "X_6"},
+      {"from": "X_3", "to": "X_7"},
+      {"from": "X_4", "to": "X_3"},
+      {"from": "X_4", "to": "X_5"},
+      {"from": "X_4", "to": "X_6"},
+      {"from": "X_4", "to": "X_7"},
+      {"from": "X_5", "to": "X_3"},
+      {"from": "X_5", "to": "X_6"},
+      {"from": "X_5", "to": "X_7"},
+
+      {"from": "X_1_t1", "to": "X_2_t1"},
+      {"from": "X_1_t1", "to": "X_3_t1"},
+      {"from": "X_1_t1", "to": "X_4_t1"},
+      {"from": "X_2_t1", "to": "X_3_t1"},
+      {"from": "X_2_t1", "to": "X_4_t1"},
+      {"from": "X_3_t1", "to": "X_6_t1"},
+      {"from": "X_3_t1", "to": "X_7_t1"},
+      {"from": "X_4_t1", "to": "X_3_t1"},
+      {"from": "X_4_t1", "to": "X_5_t1"},
+      {"from": "X_4_t1", "to": "X_6_t1"},
+      {"from": "X_4_t1", "to": "X_7_t1"},
+      {"from": "X_5_t1", "to": "X_3_t1"},
+      {"from": "X_5_t1", "to": "X_6_t1"},
+      {"from": "X_5_t1", "to": "X_7_t1"}
+
+    ],
+    "group_edges": [
+      {
+        "from_group": "X_t",
+        "to_group": "X_t+1",
+        "connection_type": "one_to_one",
+        "description": "每个T+1时刻的状态对应一个T时刻的状态"
+      },
+      {
+        "from_group": "X_t",
+        "to_group": "Y_t",
+        "connection_type": "one_to_one",
+        "description": "每个设备的真实状态对应一个攻击方的观测状态"
+      },
+      {
+        "from_group": "X_t",
+        "to_group": "Z_t",
+        "connection_type": "one_to_one",
+        "description": "每个设备的真实状态对应一个防御方的观测状态"
+      },
+      {
+        "from_group": "X_t",
+        "to_group": "Attack",
+        "connection_type": "one_to_one",
+        "description": "每个T+1时刻的状态对应一个T时刻的状态"
+      },
+      {
+        "from_group": "X_t",
+        "to_group": "Defend",
+        "connection_type": "one_to_one",
+        "description": "每个T+1时刻的状态对应一个T时刻的状态"
+      },
+      {
+        "from_group": "Attack",
+        "to_group": "X_t+1",
+        "connection_type": "one_to_one",
+        "description": "每个T+1时刻的状态对应一个T时刻的状态"
+      },
+      {
+        "from_group": "Defend",
+        "to_group": "X_t+1",
+        "connection_type": "one_to_one",
+        "description": "每个T+1时刻的状态对应一个T时刻的状态"
+      }
+    ]
+  },
+  "edges_sample": {
+    "_comment": "示例，代码会自动忽略的",
+    "single_edges": [
+      {"from": "$Var1", "to": "$Var2"},
+      {"from": "$Var3", "to": "$Var4"}
+    ],
+    "group_edges": [
+      {
+        "from_group": "group1(name)",
+        "to_group": "group2(name)",
+        "connection_type": "one_to_one",
+        "description": "要求两组变量数量相同"
+      },
+      {
+        "from_group": "group3(name)",
+        "to_group": "group4(name)",
+        "connection_type": "all_to_all",
+        "description": "两组变量全连接"
+      },
+      {
+        "from_individual": "$Var",
+        "to_group": "group1(name)",
+        "description": "from $Var to each variable in group1"
+      },
+      {
+        "from_group": "group2(name)",
+        "to_individual": "$Var",
+        "description": "from every variable in group2 to $Var"
+      }
+    ]
+  },
+  "metadata": {
+    "network_name": "IndustrialControlSystem",
+    "description": "工业控制系统贝叶斯网络模型",
+    "version": "2.0",
+    "creation_date": "2025-10-10",
+    "_comment": "注释字段用_comment标识"
+  }
+}
